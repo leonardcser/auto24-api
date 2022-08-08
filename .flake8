@@ -1,0 +1,17 @@
+[flake8]
+max-line-length = 79
+max-complexity = 18
+
+# Black compatiblity
+extend-ignore = E203
+select = B,C,E,F,W,T4,B9
+
+exclude =
+  .vscode,
+  .git,
+  .venv,
+  __pycache__
+
+# Double quotes
+inline-quotes = double
+multiline-quotes = double

@@ -1,0 +1,23 @@
+{
+	"search.exclude": {
+		"**/.venv": true
+	},
+	"editor.tabSize": 4,
+	"prettier.tabWidth": 4,
+	"prettier.useTabs": true,
+
+	"python.linting.enabled": true,
+	"python.linting.lintOnSave": true,
+	"python.linting.flake8Enabled": true,
+	"python.linting.flake8Path": ".venv/bin/flake8",
+
+	"editor.formatOnSave": true,
+	"python.formatting.provider": "black",
+	"python.formatting.blackPath": ".venv/bin/black",
+
+	"[python]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": true
+		}
+	}
+}

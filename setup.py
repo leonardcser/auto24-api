@@ -7,7 +7,7 @@ def readme():
 
 
 def requirements():
-    with open("requirements.txt") as f:
+    with open("requirements/requirements.txt") as f:
         return list(f.readlines())
 
 
