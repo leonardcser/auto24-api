@@ -1,7 +1,7 @@
 # AutoScout24 Public API
 
-## Get started
+## Installation
 
 ```python
-pip install git+https://github.com/leocser/toolbox.git
+pip install git+https://github.com/leonardcser/auto24-api
 ```
