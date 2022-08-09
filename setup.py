@@ -14,7 +14,7 @@ def requirements():
 setup(
     name="auto24_api",
     version="0.0.1",
-    description="Python API wrapper for autoscout24 (ch)",
+    description="Python API wrapper for AutoScout24.ch",
     long_description=readme(),
     long_description_content_type="text/markdown",
     install_requires=requirements(),
