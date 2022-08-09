@@ -25,6 +25,7 @@ setup(
         "auto24_api.utils",
         "auto24_api.search",
         "auto24_api.search.enums",
+        "auto24_api.details",
     ],
     classifiers=[],
 )
