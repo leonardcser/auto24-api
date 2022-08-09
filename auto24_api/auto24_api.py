@@ -84,7 +84,12 @@ class Auto24API:
 
     @property
     def _LIST_URL(self) -> str:
-        return f"https://www.autoscout24.ch/{self._lang}/voitures/s"
+        LANG_MAP = {
+            "fr": "fr/voitures",
+            "de": "de/autos",
+            "it": "it/automobili",
+        }
+        return f"https://www.autoscout24.ch/{LANG_MAP[self._lang]}/s"
 
     @property
     def _SESSION_FILENAME(self) -> str:
@@ -102,7 +107,7 @@ class Auto24API:
         if self._use_session and os.path.isfile(self._session_file_path):
             with open(self._session_file_path, "rb") as f:
                 return pickle.load(f)
-        return requests.Session()
+        return requests.Session(headers=self._headers, proxies=self._proxies)
 
     def _save_session(self) -> requests.Session:
         if not os.path.isdir(self._tmp_path):
