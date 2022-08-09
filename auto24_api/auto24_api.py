@@ -131,6 +131,7 @@ class Auto24API:
             raw=data,
             stats=data["search"]["stats"],
             search_results=data["searchResults"],
+            items=data["searchResults"]["items"],
         )
 
     def listing_details(self, query: DetailsQuery) -> Auto24APIDetailsResponse:
