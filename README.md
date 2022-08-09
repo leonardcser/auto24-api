@@ -68,4 +68,4 @@ with Auto24API() as api:
 
 ### Examples
 
-Checkout implementation examples [here](./examples/).
+Check out implementation examples [here](./examples/).
