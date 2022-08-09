@@ -29,6 +29,7 @@ from auto24_api.utils.query_encoder_factory import QueryEncoderFactory
 class Auto24API:
     def __init__(
         self,
+        headless=True,
         use_session=True,
         # bypass_captcha=False,
         # proxies=None,
@@ -39,6 +40,8 @@ class Auto24API:
     ):
         """
         Args:
+            headless (bool, optional): Whether run selenium in headless mode.
+                Defaults to True.
             use_session (bool, optional): Whether to use Python Requests
                 session in order to keep cookies. When True, the session is
                 saved to ".autoapi/tmp/". Defaults to True.
@@ -80,13 +83,13 @@ class Auto24API:
         self._wait_range = wait_range
         self._max_retries = max_retries
         self._tmp_dir = tmp_dir
-        self._driver = self._configure_driver()
+        self._driver = self._configure_driver(headless)
 
-    def _configure_driver(self) -> uc.Chrome:
+    def _configure_driver(self, headless: bool) -> uc.Chrome:
         caps = DesiredCapabilities.CHROME
         caps["goog:loggingPrefs"] = {"performance": "ALL"}
         options = uc.ChromeOptions()
-        options.headless = True
+        options.headless = headless
         user_data_dir = (
             os.path.join(self._tmp_dir, ".auto24api", "driver-user-data")
             if self._use_session
@@ -196,3 +199,12 @@ class Auto24API:
         js = js.replace("undefined", "null")
         js = js.replace("};", "}")
         return js
+
+    def close(self) -> None:
+        self._driver.quit()
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_tb):
+        self.close()
