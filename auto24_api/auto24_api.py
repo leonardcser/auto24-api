@@ -58,10 +58,7 @@ class Auto24API:
         """
         self._use_session = use_session
         self._bypass_captcha = bypass_captcha
-        if headers is None:
-            self._headers = Headers(os="mac", headers=True).generate()
-        else:
-            self._headers = headers
+        self._headers = self._get_headers() if headers is None else headers
         self._proxies = proxies
         if lang not in ["fr", "de", "it"]:
             raise InvalidArgsException(
@@ -136,6 +133,8 @@ class Auto24API:
             script_tag = soup.find("script", attrs={"id": "initial-state"})
             if not script_tag:
                 tries += 1
+                # Problem might with invalid headers
+                self._headers = self._get_headers()
                 time.sleep(random.uniform(*self._wait_range))
                 continue
             data = json.loads(self._parsejs_to_json(script_tag.text))
@@ -154,3 +153,6 @@ class Auto24API:
         js = js.replace("undefined", "null")
         js = js.replace("};", "}")
         return js
+
+    def _get_headers(self) -> dict[str, str]:
+        return Headers(os="mac", browser="chrome", headers=True).generate()
