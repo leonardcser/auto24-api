@@ -3,10 +3,14 @@ from auto24_api.search import Filters, SearchQuery
 
 
 def main() -> None:
-    with Auto24API() as api:
+    api = Auto24API()
+    makes = [Filters.MAKE.AUDI, Filters.MAKE.BMW, Filters.MAKE.VW]
+
+    data = {}
+    for m in makes:
         res = api.search_listings(
             SearchQuery(
-                make=[Filters.MAKE.AUDI, Filters.MAKE.BMW, Filters.MAKE.VW],
+                make=m,
                 year_from=2014,
                 year_to=None,
                 km_from=None,
@@ -18,7 +22,10 @@ def main() -> None:
                 page_size=60,
             )
         )
-        print(res)
+        data[m.name] = res
+    print(data)
+    # Manually close the driver
+    api.close()
 
 
 if __name__ == "__main__":

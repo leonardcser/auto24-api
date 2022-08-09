@@ -7,6 +7,7 @@
     -   [Getting Started](#getting-started)
         -   [Search Listings](#search-listings)
         -   [Listing Details](#listing-details)
+        -   [Examples](#examples)
 
 ## About
 
@@ -64,3 +65,7 @@ with Auto24API() as api:
     res = api.listing_details(DetailsQuery(_id=123456, slug="some-car-slug"))
 
 ```
+
+### Examples
+
+Checkout implementation examples [here](./examples/).

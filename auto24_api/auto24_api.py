@@ -60,7 +60,8 @@ class Auto24API:
                 files (".auto24api"). Defaults to ".".
 
         Raises:
-            InvalidLanguageException: _description_
+            InvalidArgsException: Raised whenever the class parameters are
+                invalid.
         """
         self._use_session = use_session
         if lang not in ["fr", "de", "it"]:
