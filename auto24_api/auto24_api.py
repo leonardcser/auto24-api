@@ -4,7 +4,6 @@ import random
 import time
 from typing import Union
 
-import requests
 import undetected_chromedriver as uc
 from bs4 import BeautifulSoup
 from selenium.common import exceptions
@@ -120,7 +119,7 @@ class Auto24API:
     def _SESSION_FILENAME(self) -> str:
         return "session.pkl"
 
-    def _get_full_url(self, base_url, query_params: str) -> requests.Response:
+    def _get_full_url(self, base_url, query_params: str) -> str:
         return f"{base_url}?{query_params}"
 
     def search_listings(self, query: SearchQuery) -> Auto24APISearchResponse:
