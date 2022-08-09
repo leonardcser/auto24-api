@@ -140,8 +140,6 @@ class Auto24API:
             script_tag = soup.find("script", attrs={"id": "initial-state"})
             if not script_tag:
                 tries += 1
-                with open("out.html", "w") as f:
-                    f.write(res.text)
                 # Problem might with invalid headers
                 self._headers = self._get_headers()
                 time.sleep(random.uniform(*self._wait_range))
