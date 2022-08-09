@@ -13,15 +13,13 @@ def requirements():
 
 setup(
     name="auto24_api",
-    version="0.1.0",
+    version="0.0.1",
     description="Python API wrapper for autoscout24 (ch)",
     long_description=readme(),
     long_description_content_type="text/markdown",
     install_requires=requirements(),
-    # url="https://github.com/shuds13/pyexample",
-    # author="Stephen Hudson",
-    # author_email="shudson@anl.gov",
-    # license="BSD 2-clause",
+    url="https://github.com/leonardcser/auto24-api",
+    author="Leonard C.",
     packages=["auto24_api"],
     classifiers=[],
 )

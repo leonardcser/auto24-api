@@ -1,10 +1,12 @@
 {
 	"search.exclude": {
-		"**/.venv": true
+		".venv": true
 	},
 	"editor.tabSize": 4,
 	"prettier.tabWidth": 4,
 	"prettier.useTabs": true,
+
+	"python.defaultInterpreterPath": ".venv/bin/python3",
 
 	"python.linting.enabled": true,
 	"python.linting.lintOnSave": true,
