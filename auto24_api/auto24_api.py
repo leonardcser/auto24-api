@@ -132,12 +132,16 @@ class Auto24API:
             res = self._get(self._LIST_URL, QueryEncoderFactory(config).data)
             soup = BeautifulSoup(res.content, "html.parser")
             # Check if recaptcha is required
-            if soup.find("div", attrs={"id": "captcha"}):
+            if soup.find("div", attrs={"id": "captcha"}) or soup.find(
+                "title", string="Anti-Bot Captcha"
+            ):
                 raise ReCaptchaRequiredException()
             # Extract data
             script_tag = soup.find("script", attrs={"id": "initial-state"})
             if not script_tag:
                 tries += 1
+                with open("out.html", "w") as f:
+                    f.write(res.text)
                 # Problem might with invalid headers
                 self._headers = self._get_headers()
                 time.sleep(random.uniform(*self._wait_range))

@@ -45,8 +45,8 @@ class SearchQuery(AbstractQuery):
             IsIn(key="price_to", min="price_from", max=25_000_000),
             IsIn(key="hp_from", min=0, max=2_500),
             IsIn(key="hp_to", min="hp_from", max=2_500),
-            IsIn(key="page", min=0, max=2_500),
-            IsIn(key="page_size", min=0, max=60),
+            IsIn(key="page", min=1, max=2_500),
+            IsIn(key="page_size", min=1, max=60),
         ]
         assert len(self.__annotations__.keys()) == 13, (
             "Validators should be up to date with class input params "
