@@ -17,3 +17,5 @@ pre-commit>=2.20.0,<2.30
 requests>=2.28.1,<2.30
 beautifulsoup4>=4.11.1,<4.12
 fake-headers>=1.0.2,<1.1
+undetected_chromedriver>=3.1.5,<3.2
+webdriver_manager>=3.8.3,<3.9

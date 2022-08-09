@@ -1,7 +1,7 @@
 from auto24_api import Auto24API
 from auto24_api.search import Filters, SearchQuery
 
-res = Auto24API().search_list(
+res = Auto24API().search_listings(
     SearchQuery(
         make=[Filters.MAKE.AUDI, Filters.MAKE.BMW, Filters.MAKE.VW],
         year_from=2014,

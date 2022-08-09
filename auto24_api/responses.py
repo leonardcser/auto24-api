@@ -12,3 +12,8 @@ class AbstractAuto24APIResponse(AbstractDataclass):
 class Auto24APISearchResponse(AbstractAuto24APIResponse):
     stats: dict
     search_results: dict
+
+
+@dataclass
+class Auto24APIDetailsResponse(AbstractAuto24APIResponse):
+    details: dict

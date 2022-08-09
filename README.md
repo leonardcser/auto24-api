@@ -4,7 +4,8 @@
   - [About](#about)
   - [Installation](#installation)
   - [Getting Started](#getting-started)
-    - [Search List](#search-list)
+    - [Search Listings](#search-listings)
+    - [Listing Details](#listing-details)
 
 ## About
 
@@ -22,12 +23,12 @@ pip install git+https://github.com/leonardcser/auto24-api
 from auto24_api import Auto24API
 ```
 
-### Search List
+### Search Listings
 
 ```python
 from auto24_api.search import Filters, SearchQuery, DetailsQuery
 
-res = Auto24API().search_list(
+res = Auto24API().search_listings(
     SearchQuery(
         vehicule_type=Filters.VEHICULE_TYPE.CAR
         make=[Filters.MAKE.BMW, Filters.MAKE.VW],
@@ -43,4 +44,15 @@ res = Auto24API().search_list(
         page=None,
         page_size=None,
     )
+)
+```
+
+### Listing Details
+
+```python
+from auto24_api.details import DetailsQuery
+
+res = Auto24API().listing_details(
+    DetailsQuery(_id=123456, slug="some-car-slug")
+)
 ```
