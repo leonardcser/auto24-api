@@ -20,6 +20,11 @@ setup(
     install_requires=requirements(),
     url="https://github.com/leonardcser/auto24-api",
     author="Leonard C.",
-    packages=["auto24_api", "auto24_api.utils", "auto24_api.search"],
+    packages=[
+        "auto24_api",
+        "auto24_api.utils",
+        "auto24_api.search",
+        "auto24_api.search.enums",
+    ],
     classifiers=[],
 )
