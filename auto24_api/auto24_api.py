@@ -30,7 +30,7 @@ class Auto24API:
     def __init__(
         self,
         use_session=True,
-        bypass_captcha=False,
+        # bypass_captcha=False,
         # proxies=None,
         wait_range=(2, 5),
         max_retries=3,
@@ -42,7 +42,7 @@ class Auto24API:
             use_session (bool, optional): Whether to use Python Requests
                 session in order to keep cookies. When True, the session is
                 saved to ".autoapi/tmp/". Defaults to True.
-            bypass_captcha (bool, optional): Automatically tries to complete
+            #bypass_captcha (bool, optional): Automatically tries to complete
                 the reCAPTCHA. Defaults to False.
             #proxies (_type_, optional): Python Requests proxies. Defaults to
                 None.
@@ -60,7 +60,6 @@ class Auto24API:
             InvalidLanguageException: _description_
         """
         self._use_session = use_session
-        self._bypass_captcha = bypass_captcha
         if lang not in ["fr", "de", "it"]:
             raise InvalidArgsException(
                 (
@@ -88,11 +87,14 @@ class Auto24API:
         caps["goog:loggingPrefs"] = {"performance": "ALL"}
         options = uc.ChromeOptions()
         options.headless = True
+        user_data_dir = (
+            os.path.join(self._tmp_dir, ".auto24api", "driver-user-data")
+            if self._use_session
+            else None
+        )
         return uc.Chrome(
             service=ChromeService(ChromeDriverManager().install()),
-            user_data_dir=os.path.join(
-                self._tmp_dir, ".auto24api", "driver-user-data"
-            ),
+            user_data_dir=user_data_dir,
             options=options,
             desired_capabilities=caps,
         )
