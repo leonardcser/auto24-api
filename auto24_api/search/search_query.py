@@ -39,7 +39,6 @@ class SearchQuery(AbstractQuery):
             IsIn(key="year_from", min=1975, max=dt.datetime.now().year),
             IsIn(key="year_to", min="year_from", max=dt.datetime.now().year),
             IsIn(key="km_from", min=0, max=500_000),
-            IsIn(key="km_from", min=0, max=500_000),
             IsIn(key="km_to", min="km_from", max=500_000),
             IsIn(key="price_from", min=0, max=1_000_000),
             IsIn(key="price_to", min="price_from", max=25_000_000),

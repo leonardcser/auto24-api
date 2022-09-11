@@ -43,7 +43,7 @@ class Auto24API:
                 Defaults to True.
             use_session (bool, optional): Whether to use Python Requests
                 session in order to keep cookies. When True, the session is
-                saved to ".autoapi/tmp/". Defaults to True.
+                saved to ".auto24api/tmp/". Defaults to True.
             #bypass_captcha (bool, optional): Automatically tries to complete
                 the reCAPTCHA. Defaults to False.
             #proxies (_type_, optional): Python Requests proxies. Defaults to
