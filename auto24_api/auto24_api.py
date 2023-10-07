@@ -1,6 +1,7 @@
 import json
 import os
 import random
+import re
 import time
 from typing import Union
 
@@ -11,7 +12,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from webdriver_manager.chrome import ChromeDriverManager
 
-from auto24_api.details import DetailsQuery
+from auto24_api.details import DetailsQuery, VehicleSpec
 from auto24_api.responses import (
     Auto24APIDetailsResponse,
     Auto24APISearchResponse,
@@ -95,6 +96,13 @@ class Auto24API:
             if self._use_session
             else None
         )
+        if v := ChromeDriverManager().driver.get_browser_version():
+            return uc.Chrome(
+                user_data_dir=user_data_dir,
+                options=options,
+                desired_capabilities=caps,
+                version_main=int(v.split(".")[0]),
+            )
         return uc.Chrome(
             service=ChromeService(ChromeDriverManager().install()),
             user_data_dir=user_data_dir,
@@ -142,7 +150,25 @@ class Auto24API:
         return Auto24APIDetailsResponse(
             raw=data,
             details=data["details"],
+            spec=self._parse_details_spec(data["details"]),
         )
+
+    def _parse_details_spec(self, details: dict):
+        spec = VehicleSpec()
+        for it in details["specification"]["items"]:
+            if it["key"] == "firstReg":
+                spec.first_reg = it["value"]
+            if it["key"] == "bodyColor":
+                spec.body_color = it["value"]
+            if it["key"] == "km":
+                spec.km = it["value"]
+
+        for g in details["equipment"]["groups"]:
+            if g["name"] == "optional":
+                spec.options = g["items"]
+
+        spec.price = details["prices"][0]["value"]
+        return spec
 
     def _extract_data(self, url: str) -> Union[dict, None]:
         tries = 0
@@ -152,9 +178,8 @@ class Auto24API:
             body = self._parse_network(url)
             soup = BeautifulSoup(body, "html.parser")
             # Check if recaptcha is required
-            if soup.find("div", attrs={"id": "captcha"}) or soup.find(
-                "title", string="Anti-Bot Captcha"
-            ):
+            # or soup.find("title", string="Anti-Bot Captcha")
+            if soup.find("div", attrs={"id": "captcha"}):
                 raise ReCaptchaRequiredException()
             # Extract data
             script_tag = soup.find("script", attrs={"id": "initial-state"})
@@ -199,6 +224,10 @@ class Auto24API:
         js = js.replace("window.INITIAL_STATE = ", "")
         js = js.replace("undefined", "null")
         js = js.replace("};", "}")
+
+        pattern = r'"apiClient":function wrap\(\) \{[\s\S]*?\}\}'
+        replacement = '"apiClient":""}'
+        js = re.sub(pattern, replacement, js)
         return js
 
     def close(self) -> None:

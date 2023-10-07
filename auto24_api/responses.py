@@ -18,3 +18,4 @@ class Auto24APISearchResponse(AbstractAuto24APIResponse):
 @dataclass
 class Auto24APIDetailsResponse(AbstractAuto24APIResponse):
     details: dict
+    spec: dict

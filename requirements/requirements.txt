@@ -2,6 +2,5 @@
 # Production Dependencies
 ############################################
 beautifulsoup4>=4.11.1,<4.12
-fake-headers>=1.0.2,<1.1
-undetected_chromedriver>=3.1.5,<3.2
+undetected_chromedriver>=3.5.3,<3.6
 webdriver_manager>=3.8.3,<3.9
